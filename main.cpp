@@ -1,5 +1,20 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/System.hpp>
 #include <iostream>
-#include <string>
+#include "Game.h"
+
+int main()
+{
+
+    //Init game object
+    Game game;
+
+    //Game loop
+    while(game.running())
+    {
+        game.update();
+        game.render();
+    }
+
+
+    //Ending
+    return 0;
+}
