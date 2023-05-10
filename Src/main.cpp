@@ -5,7 +5,6 @@
 
 #include "Headers/Globals.hpp"
 
-
 int main()
 {
     // Game won
