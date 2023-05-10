@@ -2,6 +2,6 @@
 #include <cmath>
 #include <SFML/Graphics.hpp>
 
-#include "Headers/Global.hpp"
+#include "Headers/Globals.hpp"
 #include "Headers/Pacman.hpp"
 #include "Headers/Ghost.hpp"
