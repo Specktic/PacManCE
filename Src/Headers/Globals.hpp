@@ -21,4 +21,15 @@ constexpr unsigned char FONT_HEIGHT = 16;
 //Cell ghosts use for chasing
 constexpr unsigned char GHOST_CHASE = 1;
 
+//Entity position
+struct Position
+{
+	short x;
+	short y;
+
+	bool operator == (const Position& i_position)
+	{
+		return this->x == i_position.x && this->y == i_position.y;
+	}
+};
 
