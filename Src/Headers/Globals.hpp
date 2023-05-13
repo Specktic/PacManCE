@@ -21,6 +21,18 @@ constexpr unsigned char FONT_HEIGHT = 16;
 //Cell ghosts use for chasing
 constexpr unsigned char GHOST_CHASE = 1;
 
+//Frame duration in frames
+constexpr unsigned short FRAME_DURATION = 16667;
+
+//Non-entity cell types
+enum Cell
+{
+	Empty,
+	Point,
+	Wall,
+	PowerUp,
+};
+
 //Entity position
 struct Position
 {
