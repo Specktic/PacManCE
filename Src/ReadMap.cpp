@@ -1,3 +1,4 @@
+
 #include <array>
 #include <string>
 #include <SFML/Graphics.hpp>
@@ -10,12 +11,16 @@
 std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> read_map(const std::array<std::string, MAP_HEIGHT > &d_map)
 {
     //Output map that is to be displayed on screen 
-    std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> output;
+    std::array< std::array < Cell, MAP_HEIGHT >, MAP_WIDTH > output;
 
-    for (unsigned char i = 0; i < MAP_WIDTH; ++i)
+    for (unsigned char i = 0; i < MAP_WIDTH; i++)
     {
-        for (unsigned char j = 0; j < MAP_HEIGHT; ++j)
+        for (unsigned char j = 0; j < MAP_HEIGHT; j++)
         {
+
+            output[i][j] = Cell::Empty;
+
+
             switch (d_map[i][j])
             {
                 case ' ':

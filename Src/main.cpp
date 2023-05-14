@@ -5,7 +5,7 @@
 
 #include "Headers/Globals.hpp"
 #include "Headers/ReadMap.hpp"
-#include "Headers/DrawMap.hpp"
+#include "Headers/RenderMap.hpp"
 #include "Headers/Pacman.hpp"
 
 int main()
@@ -23,8 +23,8 @@ int main()
 		" #    #   #   #    # ",
 		" #### ### # ### #### ",
 		"    # #       # #    ",
-		"##### # ## ## # #####",
-		"#       #   #       #",
+		"##### # ##### # #####",
+		"#       #####       #",
 		"##### # ##### # #####",
 		"    # #       # #    ",
 		" #### # ##### # #### ",
@@ -56,10 +56,16 @@ int main()
     //Game loop 
     while (play_window.isOpen())
     {
-        if (event.type == sf::Event::Closed)
-        {
-            play_window.close();
-        }
+        while (1 == play_window.pollEvent(event))
+			{
+				switch (event.type)
+				{
+					case sf::Event::Closed:
+					{
+						play_window.close();
+					}
+				}
+			}
 		
 
         play_window.clear();
