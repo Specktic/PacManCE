@@ -48,7 +48,12 @@ int main()
     sf::RenderWindow play_window(sf::VideoMode(CELL_SIZE * MAP_WIDTH * SCREEN_RESIZE, (FONT_HEIGHT + CELL_SIZE * MAP_HEIGHT) * SCREEN_RESIZE), "PMCE", sf::Style::Close);
     play_window.setView(sf::View(sf::FloatRect(0, 0, CELL_SIZE * MAP_WIDTH, FONT_HEIGHT + CELL_SIZE * MAP_HEIGHT)));
 
-    //Object instances
+    //Instances
+	Pacman pac;
+
+	//Pacman sprite
+	sf::CircleShape yellowBall (static_cast<float>(CELL_SIZE));
+	yellowBall.setFillColor(sf::Color::Yellow);
 
     //Reading map schematic
     play_map = read_map(map_schematic_1);
@@ -56,7 +61,7 @@ int main()
     //Game loop 
     while (play_window.isOpen())
     {
-        while (1 == play_window.pollEvent(event))
+        while (play_window.pollEvent(event))
 			{
 				switch (event.type)
 				{
@@ -66,14 +71,17 @@ int main()
 					}
 				}
 			}
-		
-
+		//Clear
         play_window.clear();
+		//Window
+
+		pac.update(play_map);
+		pac.draw(play_window);
 
         render_map(play_map, play_window);
 
+		//Display
         play_window.display();
-
+		//Window
     }
-
 }

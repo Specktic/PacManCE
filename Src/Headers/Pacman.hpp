@@ -19,24 +19,27 @@ public:
     //Gets death value
     bool get_death();
 
+    //Sets death value
+    void set_death(bool ideath);
+
     //Gets direction 
     unsigned char get_direction();
 
-    //Draws pacman 
-    void draw();
-
-    //Resets
-    void reset();
-    
-    //Sets death value
-    void set_death();
-
-    //Sets pacman's position
-    void set_position();
-
-    //Updates pacman
-    void update();
+    //Sets direction 
+    void set_direction(unsigned char dir);
 
     //Gets position
     Position get_position();
+
+    //Sets pacman's position
+    void set_position(short ix, short iy);
+
+    //Updates pacman
+    void update(std::array< std::array < Cell, MAP_HEIGHT >, MAP_WIDTH > &imap);
+
+    //Resets
+    void reset();
+
+    //Draws pacman on play window
+    void draw(sf::RenderWindow &iwindow);
 };
