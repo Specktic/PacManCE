@@ -1,5 +1,6 @@
 #include <array>
 #include <cmath>
+#include <iostream>
 
 #include "Headers/Globals.hpp"
 #include "Headers/MapChecker.hpp"
@@ -76,6 +77,8 @@ bool map_check(bool ipoint, short ix, short iy, std::array<std::array<Cell, MAP_
 				else if (Cell::Point == imap[x][y])
 				{
 					imap[x][y] = Cell::Empty;
+					std::cout << "nom ";
+					
 				}
 			}
 		}

@@ -18,42 +18,42 @@ std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> read_map(const std::array<st
         for (unsigned char j = 0; j < MAP_WIDTH; j++)
         {
 
-            output[i][j] = Cell::Empty;
+            output[j][i] = Cell::Empty;
 
 
             switch (dmap[i][j])
             {
                 case ' ':
                 {
-                    output[i][j] = Cell::Empty;
+                    output[j][i] = Cell::Empty;
 
                     break;
                 }
 
                 case '#':
                 {
-                    output[i][j] = Cell::Wall;
+                    output[j][i] = Cell::Wall;
 
                     break;
                 }
 
                 case '.':
                 {
-                    output[i][j] = Cell::Point;
+                    output[j][i] = Cell::Point;
 
                     break;
                 }
 
                 case 'o':
                 {
-                    output[i][j] = Cell::PowerUp;
+                    output[j][i] = Cell::PowerUp;
 
                     break;
                 }
 
                 case 'P':
                 {
-                    ipac.set_position(CELL_SIZE * i, CELL_SIZE * j);
+                    ipac.set_position(CELL_SIZE * j, CELL_SIZE * i);
 
                     break;
                 }
