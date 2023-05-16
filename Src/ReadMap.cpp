@@ -37,6 +37,20 @@ std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> read_map(const std::array<st
                     break;
                 }
 
+                case '.':
+                {
+                    output[i][j] = Cell::Point;
+
+                    break;
+                }
+
+                case 'o':
+                {
+                    output[i][j] = Cell::PowerUp;
+
+                    break;
+                }
+
                 case 'P':
                 {
                     ipac.set_position(CELL_SIZE * i, CELL_SIZE * j);

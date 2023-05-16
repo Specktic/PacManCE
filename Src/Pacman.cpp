@@ -1,7 +1,9 @@
+#include <cmath>
 #include <SFML/Graphics.hpp>
 
 #include "Headers/Globals.hpp"
 #include "Headers/Pacman.hpp"
+#include "Headers/MapChecker.hpp"
 
 Pacman::Pacman() :
     direction(0),
@@ -11,58 +13,89 @@ Pacman::Pacman() :
 }
 
 
-void Pacman::update()
+void Pacman::update(std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> &imap)
 {
+    std::array<bool, 4> walls{};
+	walls[0] = map_check(0, position.x, position.y - PAC_SPEED, imap);
+	walls[1] = map_check(0, position.x - PAC_SPEED, position.y, imap);
+	walls[2] = map_check(0, position.x, PAC_SPEED + position.y, imap);
+    walls[3] = map_check(0, PAC_SPEED + position.x, position.y, imap);
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
-        direction = 3;
+        if (0 == walls[0])
+		{
+			direction = 0;
+		}
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        direction = 1;
+        if (0 == walls[1])
+		{
+			direction = 1;
+		}
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
-        direction = 2;
+        if (0 == walls[2])
+		{
+			direction = 2;
+		}
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        direction = 0;
+        if (0 == walls[3])
+		{
+			direction = 3;
+		}
     }
 
-    switch (direction)
-    {
-        case 0:
+    if (0 == walls[direction])
+	{
+        switch (direction)
         {
-            position.x += PAC_SPEED;
+            case 0:
+            {
+                position.y -= PAC_SPEED;
 
-            break;
+                break;
+            }
+
+            case 1:
+            {
+                position.x -= PAC_SPEED;
+
+                break;
+            }
+
+            case 2:
+            {
+                position.y += PAC_SPEED;
+
+                break;
+            }
+
+            case 3:
+            {
+                position.x += PAC_SPEED;
+
+                break;
+            }
         }
 
-        case 1:
-        {
-            position.x -= PAC_SPEED;
-
-            break;
-        }
-
-        case 2:
-        {
-            position.y += PAC_SPEED;
-
-            break;
-        }
-
-        case 3:
-        {
-            position.y -= PAC_SPEED;
-
-            break;
-        }
     }
+
+    if (-CELL_SIZE >= position.x)
+	{
+		position.x = CELL_SIZE * MAP_WIDTH - PAC_SPEED;
+	}
+	else if (CELL_SIZE * MAP_WIDTH <= position.x)
+	{
+		position.x = PAC_SPEED - CELL_SIZE;
+	}
 }
 
 void Pacman::draw(sf::RenderWindow &iwindow)

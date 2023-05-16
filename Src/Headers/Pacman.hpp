@@ -8,8 +8,8 @@ class Pacman
 
 public:
     Pacman();
-    
-    void update();
+
+    void update(std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> &imap);
     void draw(sf::RenderWindow &window);
     void set_position(short ix ,short iy);
 };
