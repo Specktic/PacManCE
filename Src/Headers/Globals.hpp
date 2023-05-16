@@ -4,7 +4,7 @@
 constexpr unsigned char GHOST_SPEED = 1;
 
 //Pacman moving speed
-constexpr unsigned char PAC_SPEED = 0.1;
+constexpr unsigned char PAC_SPEED = 1;
 
 //Map height
 constexpr unsigned char MAP_HEIGHT = 21;

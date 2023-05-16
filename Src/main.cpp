@@ -18,7 +18,7 @@ int main()
         " ################### ",
 		" #        #        # ",
 		" # ## ### # ### ## # ",
-		" #                 # ",
+		" #        P        # ",
 		" # ## # ##### # ## # ",
 		" #    #   #   #    # ",
 		" #### ### # ### #### ",
@@ -34,12 +34,12 @@ int main()
 		" ## # # ##### # # ## ",
 		" #    #   #   #    # ",
 		" # ###### # ###### # ",
-		" #                 # ",
+		" #        P        # ",
 		" ################### "
     };
 
     //Map instance before reading schematic
-    std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> play_map;
+    std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> play_map{};
 
     //SFML events
     sf::Event event;
@@ -56,7 +56,7 @@ int main()
 	yellowBall.setFillColor(sf::Color::Yellow);
 
     //Reading map schematic
-    play_map = read_map(map_schematic_1);
+    play_map = read_map(map_schematic_1, pac);
 
     //Game loop 
     while (play_window.isOpen())
