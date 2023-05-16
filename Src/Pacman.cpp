@@ -4,7 +4,6 @@
 
 #include "Headers/Globals.hpp"
 #include "Headers/Pacman.hpp"
-#include "Headers/Collisions.hpp"
 
 Pacman::Pacman() :
     death(0),
