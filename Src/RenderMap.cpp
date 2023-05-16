@@ -8,9 +8,9 @@ void render_map(const std::array < std::array < Cell, MAP_HEIGHT >, MAP_WIDTH > 
 {
     sf::RectangleShape cell_shape(sf::Vector2f(CELL_SIZE, CELL_SIZE));
 
-    for (unsigned char i = 0; i < MAP_HEIGHT; i++)
+    for (unsigned char i = 0; i < MAP_WIDTH; i++)
     {
-        for (unsigned char j = 0; j < MAP_WIDTH; j++)
+        for (unsigned char j = 0; j < MAP_HEIGHT; j++)
         {
             cell_shape.setPosition(CELL_SIZE * i, CELL_SIZE * j);
 
@@ -18,7 +18,7 @@ void render_map(const std::array < std::array < Cell, MAP_HEIGHT >, MAP_WIDTH > 
             {
                 case Cell::Wall:
                 {
-                    cell_shape.setFillColor(sf::Color(0,0,255));
+                    cell_shape.setFillColor(sf::Color(50, 50, 255));
 
                     window.draw(cell_shape);
                 }

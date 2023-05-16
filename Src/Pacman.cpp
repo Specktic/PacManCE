@@ -1,63 +1,80 @@
-#include <array>
-#include <cmath>
 #include <SFML/Graphics.hpp>
 
 #include "Headers/Globals.hpp"
 #include "Headers/Pacman.hpp"
 
 Pacman::Pacman() :
-    death(0),
     direction(0),
-    position({0,0})
+    position({0, 0})
 {
+
 }
 
-bool Pacman::get_death()
+
+void Pacman::update()
 {
-    return death;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    {
+        direction = 3;
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    {
+        direction = 1;
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    {
+        direction = 2;
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    {
+        direction = 0;
+    }
+
+    switch (direction)
+    {
+        case 0:
+        {
+            position.x += PAC_SPEED;
+
+            break;
+        }
+
+        case 1:
+        {
+            position.x -= PAC_SPEED;
+
+            break;
+        }
+
+        case 2:
+        {
+            position.y += PAC_SPEED;
+
+            break;
+        }
+
+        case 3:
+        {
+            position.y -= PAC_SPEED;
+
+            break;
+        }
+    }
 }
 
-void Pacman::set_death(bool ideath)
+void Pacman::draw(sf::RenderWindow &iwindow)
 {
-    death = ideath;
-}
+    sf::CircleShape pac(CELL_SIZE / 2);
+    pac.setFillColor(sf::Color(255, 255, 0));
+    pac.setPosition(position.x, position.y);
 
-unsigned char Pacman::get_direction()
-{
-    return direction;
-}
-
-void Pacman::set_direction(unsigned char dir)
-{
-    direction = dir;
-}
-
-Position Pacman::get_position()
-{
-    return position;
+    iwindow.draw(pac);
 }
 
 void Pacman::set_position(short ix, short iy)
 {
-	position = {ix, iy};
-}
-
-void Pacman::update(std::array< std::array < Cell, MAP_HEIGHT >, MAP_WIDTH > &imap)
-{
-
-}
-
-void Pacman::reset()
-{
-    death = 0;
-    direction = 0;
-}
-
-void Pacman::draw(sf::RenderWindow &window)
-{
-    sf::CircleShape circle(CELL_SIZE / 2);
-    circle.setFillColor(sf::Color(255, 255, 0));
-    circle.setPosition(position.x, position.y);
-    
-    window.draw(circle);
+    position = {ix, iy};
 }

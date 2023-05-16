@@ -4,7 +4,7 @@
 constexpr unsigned char GHOST_SPEED = 1;
 
 //Pacman moving speed
-constexpr unsigned char PAC_SPEED = 1;
+constexpr unsigned char PAC_SPEED = 2;
 
 //Map height
 constexpr unsigned char MAP_HEIGHT = 21;
@@ -21,11 +21,8 @@ constexpr unsigned char CELL_SIZE = 16;
 //Lettering size
 constexpr unsigned char FONT_HEIGHT = 16;
 
-//Cell ghosts use for chasing
-constexpr unsigned char GHOST_CHASE = 1;
-
-//Frame duration in frames
-constexpr unsigned short FRAME_DURATION = 16667;
+//Frame time
+constexpr unsigned short FRAME_DURATION = 20000;
 
 //Non-entity cell types
 enum Cell

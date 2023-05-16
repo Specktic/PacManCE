@@ -10,78 +10,97 @@
 
 int main()
 {
-    // Game won
-    bool game_won = 0;
-
     // Map
     std::array<std::string, MAP_HEIGHT > map_schematic_1 = {
         " ################### ",
-		" #        #        # ",
-		" # ## ### # ### ## # ",
-		" #        P        # ",
-		" # ## # ##### # ## # ",
-		" #    #   #   #    # ",
-		" #### ### # ### #### ",
-		"    # #       # #    ",
-		"##### # ##### # #####",
-		"#       #####       #",
-		"##### # ##### # #####",
-		"    # #       # #    ",
-		" #### # ##### # #### ",
-		" #        #        # ",
-		" # ## ### # ### ## # ",
-		" #  #           #  # ",
-		" ## # # ##### # # ## ",
-		" #    #   #   #    # ",
-		" # ###### # ###### # ",
-		" #        P        # ",
+		" #                 # ",
+		" #                 # ",
+		" #                 # ",
+		" #                 # ",
+		" #                 # ",
+		" #                 # ",
+		" #                 # ",
+		" #                 # ",
+		" #P                # ",
+		" #                 # ",
+		" #                 # ",
+		" #                 # ",
+		" #                 # ",
+		" #                 # ",
+		" #                 # ",
+		" #                 # ",
+		" #                 # ",
+		" #                 # ",
+		" #                 # ",
 		" ################### "
     };
 
     //Map instance before reading schematic
-    std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> play_map{};
+    std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> map{};
+
+	//Some lag thing-------------------------------------------------------------------------------
+	unsigned lag = 0;
+	std::chrono::time_point<std::chrono::steady_clock> prevTime;
+	//---------------------------------------------------------------------------------------------
 
     //SFML events
     sf::Event event;
 
     //SFML window 
-    sf::RenderWindow play_window(sf::VideoMode(CELL_SIZE * MAP_WIDTH * SCREEN_RESIZE, (FONT_HEIGHT + CELL_SIZE * MAP_HEIGHT) * SCREEN_RESIZE), "PMCE", sf::Style::Close);
-    play_window.setView(sf::View(sf::FloatRect(0, 0, CELL_SIZE * MAP_WIDTH, FONT_HEIGHT + CELL_SIZE * MAP_HEIGHT)));
+    sf::RenderWindow window(sf::VideoMode(CELL_SIZE * MAP_WIDTH * SCREEN_RESIZE, (FONT_HEIGHT + CELL_SIZE * MAP_HEIGHT) * SCREEN_RESIZE), "PMCE", sf::Style::Close);
+    window.setView(sf::View(sf::FloatRect(0, 0, CELL_SIZE * MAP_WIDTH, FONT_HEIGHT + CELL_SIZE * MAP_HEIGHT)));
 
     //Instances
-	Pacman pac;
-
-	//Pacman sprite
-	sf::CircleShape yellowBall (static_cast<float>(CELL_SIZE));
-	yellowBall.setFillColor(sf::Color::Yellow);
+	Pacman pacman;
 
     //Reading map schematic
-    play_map = read_map(map_schematic_1, pac);
+    map = read_map(map_schematic_1, pacman);
 
-    //Game loop 
-    while (play_window.isOpen())
+	//Some lag thing again--------------------------------------------------------------------------
+	prevTime = std::chrono::steady_clock::now();
+
+    //Game loop
+    while (window.isOpen())
     {
-        while (play_window.pollEvent(event))
+		//More lag thing---------------------------------------------------------------------------
+		unsigned deltaTime = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - prevTime).count();
+		lag += deltaTime;
+		prevTime += std::chrono::microseconds(deltaTime);
+		//-----------------------------------------------------------------------------------------
+
+		while (FRAME_DURATION <= lag)
+		{
+			lag -= FRAME_DURATION;
+
+			while (window.pollEvent(event))
 			{
 				switch (event.type)
 				{
 					case sf::Event::Closed:
 					{
-						play_window.close();
+						window.close();
 					}
 				}
 			}
-		//Clear
-        play_window.clear();
-		//Window
 
-		pac.update(play_map);
-		pac.draw(play_window);
+			if (FRAME_DURATION > lag)
+			{
+				//Update pacman
+				pacman.update();
+				
+				//Clear
+				window.clear();
 
-        render_map(play_map, play_window);
+				//Draw map state
+				render_map(map, window);
+				
+				//Draw pacman
+				pacman.draw(window);
 
-		//Display
-        play_window.display();
-		//Window
+				//Display game window 
+				window.display();
+
+			}
+		}
     }
 }
