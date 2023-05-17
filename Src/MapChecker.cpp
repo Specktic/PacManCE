@@ -5,7 +5,7 @@
 #include "Headers/Globals.hpp"
 #include "Headers/MapChecker.hpp"
 
-bool map_check(bool ipoint, short ix, short iy, std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> &imap)
+bool map_check(bool collect_point, short ix, short iy, std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> &imap)
 {
     bool output = 0;
 
@@ -58,27 +58,27 @@ bool map_check(bool ipoint, short ix, short iy, std::array<std::array<Cell, MAP_
 		if (0 <= x && 0 <= y && MAP_HEIGHT > y && MAP_WIDTH > x)
 		{
             //Check for walls 
-			if (0 == ipoint) 
+			if (0 == collect_point) 
 			{
 				if (Cell::Wall == imap[x][y])
 				{
 					output = 1;
 				}
 			}
+
             //Check for collectible
 			else 
 			{
-				if (Cell::PowerUp == imap[x][y])
+				if (imap[x][y] == Cell::PowerUp)
 				{
 					output = 1;
+
 					imap[x][y] = Cell::Empty;
 				}
 
-				else if (Cell::Point == imap[x][y])
+				else if (imap[x][y] == Cell::Point)
 				{
 					imap[x][y] = Cell::Empty;
-					std::cout << "nom ";
-					
 				}
 			}
 		}
