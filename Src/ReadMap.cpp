@@ -6,9 +6,10 @@
 #include "Headers/Globals.hpp"
 #include "Headers/Pacman.hpp"
 #include "Headers/ReadMap.hpp"
+#include "Headers/Ghost.hpp"
 
 //Reads map drawings and converts each string into an according cell
-std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> read_map(const std::array<std::string, MAP_HEIGHT > &dmap, Pacman &ipac)
+std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> read_map(const std::array<std::string, MAP_HEIGHT > &dmap, Pacman &ipac, Ghost &ighost)
 {
     //Output map that is to be displayed on screen 
     std::array< std::array < Cell, MAP_HEIGHT >, MAP_WIDTH > output;
@@ -54,6 +55,13 @@ std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> read_map(const std::array<st
                 case 'P':
                 {
                     ipac.set_position(CELL_SIZE * j, CELL_SIZE * i);
+
+                    break;
+                }
+
+                case 'G':
+                {
+                    ighost.set_Position(CELL_SIZE * j, CELL_SIZE * i);
 
                     break;
                 }

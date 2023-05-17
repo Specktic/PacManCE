@@ -7,13 +7,14 @@
 #include "Headers/ReadMap.hpp"
 #include "Headers/RenderMap.hpp"
 #include "Headers/Pacman.hpp"
+#include "Headers/Ghost.hpp"
 
 int main()
 {
     // Map
     std::array<std::string, MAP_HEIGHT > map_schematic_1 = {
         " ################### ",
-		" #.................# ",
+		" #........G........# ",
 		" #.####.#####.####.# ",
 		" #....#.......#....# ",
 		" ####.#########.#### ",
@@ -52,9 +53,11 @@ int main()
 
     //Instances
 	Pacman pacman;
+	Ghost ghost(0);
+
 
     //Reading map schematic
-    map = read_map(map_schematic_1, pacman);
+    map = read_map(map_schematic_1, pacman, ghost);
 
 	//Some lag thing again--------------------------------------------------------------------------
 	prevTime = std::chrono::steady_clock::now();
@@ -94,8 +97,9 @@ int main()
 				//Draw map state
 				render_map(map, window);
 				
-				//Draw pacman
+				//Draw entities
 				pacman.draw(window);
+				ghost.draw(window);
 
 				//Display game window 
 				window.display();
